@@ -1,32 +1,48 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.down = exports.up = void 0;
-function up(knex) {
-    return __awaiter(this, void 0, void 0, function* () {
-        return knex.schema.createTable("User", table => {
-            table.increments("id").primary();
-            table.string("email").unique();
-            table.string("hashPassword");
-            table.string("firstName");
-            table.string("lastName");
-            table.string("fullName");
-            table.boolean("isCurator");
-        });
+async function up(knex) {
+    await knex.schema.createTable("User", table => {
+        table.increments("id").primary();
+        table.string("email").unique();
+        table.string("hashPassword");
+        table.string("firstName");
+        table.string("lastName");
+        table.string("fullName");
+        table.boolean("isCurator");
+    });
+    await knex.schema.createTable("Categories", t => {
+        t.increments("id").primary();
+        t.string("title").notNullable();
+        t.string("description");
+    });
+    await knex.schema.createTable("Content", t => {
+        t.increments("id").primary();
+        t.string("content");
+        t.string("authName");
+    });
+    await knex.schema.createTable("Post", t => {
+        t.increments("id").primary();
+        t.string("title");
+        t.string("description");
+        t.integer("auth", 11).unsigned().references("id").inTable("User");
+        t.integer("authName", 11).unsigned().references("id").inTable("Content");
+        t.integer("categories", 11).unsigned().references("id").inTable("Categories");
+        t.timestamp('created_at').defaultTo(knex.fn.now());
+        t.timestamp('updated_at').defaultTo(knex.fn.now());
+    });
+    await knex.schema.createTable("Starred", t => {
+        t.increments("id").primary();
+        t.integer("post", 11).unsigned().references("id").inTable("Post");
+        t.integer("user", 11).unsigned().references("id").inTable("User");
     });
 }
 exports.up = up;
-function down(knex) {
-    return __awaiter(this, void 0, void 0, function* () {
-        return knex.schema.dropTable("User");
-    });
+async function down(knex) {
+    knex.schema.dropTable("User");
+    knex.schema.dropTable("Categories");
+    knex.schema.dropTable("Post");
+    knex.schema.dropTable("Starred");
 }
 exports.down = down;
+//# sourceMappingURL=20210207224548_User.js.map

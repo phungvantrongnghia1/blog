@@ -14,3 +14,4 @@ routing_controllers_1.useExpressServer(app, {
 app.listen(3333, () => {
     console.log("Server is running at port 3333!");
 });
+//# sourceMappingURL=index.js.map

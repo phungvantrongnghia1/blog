@@ -11,9 +11,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 require("reflect-metadata");
+const knex_1 = require("../../knex");
 const routing_controllers_1 = require("routing-controllers");
 let UserController = class UserController {
-    getList() {
+    async getList() {
+        const result = await knex_1.knexClient.select("*").from("User");
+        console.log('result :>> ', result);
         return "list is get";
     }
 };
@@ -21,9 +24,10 @@ __decorate([
     routing_controllers_1.Get("/"),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], UserController.prototype, "getList", null);
 UserController = __decorate([
     routing_controllers_1.JsonController()
 ], UserController);
 exports.UserController = UserController;
+//# sourceMappingURL=UserController.js.map

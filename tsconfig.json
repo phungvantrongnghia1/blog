@@ -19,7 +19,6 @@
     "allowJs": true,
     // "strictBindCallApply": true,
     "lib": ["es2018", "esnext.asynciterable", "DOM"],
-    "types": ["node"]
   },
-  "include": ["src/**/*", "migrations/**/*"]
+  "include": ["src/**/*", "migrations/**/*","knex.ts", "knexfile.ts"]
 }
