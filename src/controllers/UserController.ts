@@ -1,13 +1,15 @@
+import { AppRequest } from "./../middlewares/bootstrapRouter";
 import "reflect-metadata";
-import {knexClient}  from "../../knex";
 
-import { Get,JsonController} from "routing-controllers";
+import { Get, Req,JsonController, Post} from "routing-controllers";
 @JsonController()
 export class UserController {
-    @Get("/")
-    async getList(){
-       const result = await knexClient.select("*").from("User");
-       console.log('result :>> ', result);
-        return "list is get"
+    @Post("/v1/users/signup")
+    async signUp(@Req() req: AppRequest){
+       return req.interactor.userSignInInteractor.execute(req.body);
+    }
+    @Post("/v1/users/signin")
+    async signIn(@Req() req: AppRequest){
+        return req.interactor.userSignInInteractor.execute(req.body);
     }
 }

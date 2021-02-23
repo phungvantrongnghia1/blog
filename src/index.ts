@@ -1,13 +1,16 @@
 import express from "express";
 import "reflect-metadata";
-
-import { createExpressServer, useExpressServer } from "routing-controllers";
+import { useExpressServer } from "routing-controllers";
 import {UserController} from "./controllers/UserController";
+import { bootstrapRouter } from "./middlewares/bootstrapRouter";
+import bodyParser from "body-parser";
 const app = express();
-
-useExpressServer(app,{
-    controllers: [UserController]
+app.use(bodyParser.json()) // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+const Appconfig = bootstrapRouter(app);
+useExpressServer(Appconfig,{
+    controllers: [UserController],
 })
-app.listen(3333,() => {
-    console.log("Server is running at port 3333!");
+Appconfig.listen(3500,() => {
+    console.log("Server is running at port 3500!");
 })
