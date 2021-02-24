@@ -18,7 +18,7 @@
     "strictFunctionTypes": true,
     "allowJs": true,
     // "strictBindCallApply": true,
-    "lib": ["es2018", "esnext.asynciterable", "DOM"],
+    "lib": ["es2018", "esnext.asynciterable", "DOM", "es5", "es6", "dom.iterable"],
   },
   "include": ["src/**/*", "migrations/**/*","knex.ts", "knexfile.ts"]
 }

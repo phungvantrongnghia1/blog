@@ -3,18 +3,23 @@ import { UserSignUpInteractor } from "../domain/Interactors/User/SignUp/UserSign
 import {Application, request, Request} from "express";
 import {knexClient}  from "../../knex";
 import { UserSignInInteractor } from "../domain/Interactors/User/UserSignInInteractor/UserSignInInteractor";
+import { KnexSQL } from "../helpers/KnexQuery";
+import { appConfigs } from "../pkgs/configs/AppConfigs";
+import { bootstrapAuth } from "./bootstrapAuth";
 
 export interface AppRequest extends Request {
     interactor: {
         userSignUpInteractor: UserSignUpInteractor
         userSignInInteractor: UserSignInInteractor
-    }
+    },
+    user?:any
 }
-const isAppRequest = (req: Request | AppRequest): req is AppRequest => {
+export const isAppRequest = (req: Request | AppRequest): req is AppRequest => {
     return (req as AppRequest) !== undefined;
 }
-const userSignUpInteractor = new UserSignUpInteractor(knexClient);
-const userSignInInteractor = new UserSignInInteractor(knexClient);
+const knexSQL = new KnexSQL(knexClient);
+const userSignUpInteractor = new UserSignUpInteractor( knexSQL);
+const userSignInInteractor = new UserSignInInteractor(knexSQL,appConfigs);
 
 export const bootstrapRouter = (app: Application): Application  => {
     app.use((req,res,next) => {
@@ -27,5 +32,6 @@ export const bootstrapRouter = (app: Application): Application  => {
         }
         next();
     })
+    bootstrapAuth(app);
     return app;
 }
