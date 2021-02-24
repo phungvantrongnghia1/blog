@@ -15,6 +15,7 @@ async function up(knex) {
         t.increments("id").primary();
         t.string("title").notNullable();
         t.string("description");
+        t.integer("auth", 11).unsigned().references("id").inTable("User");
     });
     await knex.schema.createTable("Post", (t) => {
         t.increments("id").primary();
