@@ -22,6 +22,9 @@ let UserController = class UserController {
     async signIn(req) {
         return req.interactor.userSignInInteractor.execute(req.body);
     }
+    getSome() {
+        return "";
+    }
 };
 __decorate([
     routing_controllers_1.Post("/v1/users/signup"),
@@ -37,6 +40,12 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "signIn", null);
+__decorate([
+    routing_controllers_1.Get("/"),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], UserController.prototype, "getSome", null);
 UserController = __decorate([
     routing_controllers_1.JsonController()
 ], UserController);
