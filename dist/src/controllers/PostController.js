@@ -16,18 +16,27 @@ exports.PostController = void 0;
 require("reflect-metadata");
 const routing_controllers_1 = require("routing-controllers");
 let PostController = class PostController {
-    async createCategory(req) {
-        console.log("alo");
-        return "create category";
+    async getListCategory(req) {
+        return req.interactor.getCategoryInteractor.execute(req);
+    }
+    async createPost(req) {
+        return req.interactor.createPostInteractor.execute(req, req.body);
     }
 };
 __decorate([
-    routing_controllers_1.Post("/v1/post/category"),
+    routing_controllers_1.Get("/v1/post/category"),
     __param(0, routing_controllers_1.Req()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
-], PostController.prototype, "createCategory", null);
+], PostController.prototype, "getListCategory", null);
+__decorate([
+    routing_controllers_1.Post("/v1/post/create"),
+    __param(0, routing_controllers_1.Req()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], PostController.prototype, "createPost", null);
 PostController = __decorate([
     routing_controllers_1.JsonController()
 ], PostController);
