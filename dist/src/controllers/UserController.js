@@ -13,11 +13,12 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
+const UserSignUpPayload_1 = require("./../domain/Interactors/User/SignUp/UserSignUpPayload");
 require("reflect-metadata");
 const routing_controllers_1 = require("routing-controllers");
 let UserController = class UserController {
-    async signUp(req) {
-        return req.interactor.userSignUpInteractor.execute(req.body);
+    async signUp(req, payload) {
+        return req.interactor.userSignUpInteractor.execute(payload);
     }
     async signIn(req) {
         return req.interactor.userSignInInteractor.execute(req.body);
@@ -28,9 +29,9 @@ let UserController = class UserController {
 };
 __decorate([
     routing_controllers_1.Post("/v1/users/signup"),
-    __param(0, routing_controllers_1.Req()),
+    __param(0, routing_controllers_1.Req()), __param(1, routing_controllers_1.Body()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [Object, UserSignUpPayload_1.UserSignUpPayload]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "signUp", null);
 __decorate([
