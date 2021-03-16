@@ -1,0 +1,4 @@
+- một ứng dụng cho phép người ta post 1 bài post gồm ảnh lên kèm theo stt giống fb 
+- người khác có thể xem bài post like, unlike, comment
+- follow người khác
+- chat với bạn bè 
