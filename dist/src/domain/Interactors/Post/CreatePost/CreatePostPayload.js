@@ -14,6 +14,10 @@ const class_validator_1 = require("class-validator");
 class CreatePostPayload {
 }
 __decorate([
+    class_validator_1.MaxLength(256),
+    __metadata("design:type", String)
+], CreatePostPayload.prototype, "content", void 0);
+__decorate([
     class_validator_1.IsEmpty(),
     __metadata("design:type", String)
 ], CreatePostPayload.prototype, "categories", void 0);

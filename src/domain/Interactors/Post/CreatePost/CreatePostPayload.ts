@@ -1,7 +1,7 @@
-import { IsEmpty } from "class-validator";
+import { IsEmpty, MaxLength } from "class-validator";
 export class CreatePostPayload {
+  @MaxLength(256)
   content!: string;
-  image!: string;
   @IsEmpty()
   categories!: string;
   @IsEmpty()

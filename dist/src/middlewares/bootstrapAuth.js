@@ -22,7 +22,6 @@ function bootstrapAuth(app) {
                     .status(401)
                     .send(new AuthenticationFailedError_1.AuthenticationFailedError(error.message));
             }
-            console.log('error :>> ', error);
         }
     });
     return app;
