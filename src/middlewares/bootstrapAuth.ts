@@ -23,7 +23,6 @@ export function bootstrapAuth(app: Application) {
           .status(401)
           .send(new AuthenticationFailedError(error.message));
       }
-      console.log('error :>> ', error);
     }
   });
   return app;
