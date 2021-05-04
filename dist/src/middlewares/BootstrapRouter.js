@@ -24,20 +24,6 @@ const userSignUpInteractor = new UserSignUpInteractor_1.UserSignUpInteractor(kne
 const userSignInInteractor = new UserSignInInteractor_1.UserSignInInteractor(knexSQL, AppConfigs_1.appConfigs);
 const getCategoryInteractor = new GetCategoryInteractor_1.GetCategoryInteractor(knexSQL);
 const createPostInteractor = new CreatePostInteractor_1.CreatePostInteractor(knexSQL);
-// export const bootstrapRouter = (app: Application): void  => {
-//     app.use((req,res,next) => {
-//         if(!isAppRequest(req)){
-//             return ;
-//         }
-//         req.interactor = {
-//             userSignUpInteractor,
-//             userSignInInteractor,
-//             getCategoryInteractor,
-//             createPostInteractor
-//         }
-//         next();
-//     })
-// }
 let BootstrapRouter = class BootstrapRouter {
     use(request, response, next) {
         if (!exports.isAppRequest(request)) {
@@ -56,4 +42,4 @@ BootstrapRouter = __decorate([
     routing_controllers_1.Middleware({ type: "before" })
 ], BootstrapRouter);
 exports.BootstrapRouter = BootstrapRouter;
-//# sourceMappingURL=bootstrapRouter.js.map
+//# sourceMappingURL=BootstrapRouter.js.map

@@ -15,19 +15,31 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PostController = void 0;
 require("reflect-metadata");
 const routing_controllers_1 = require("routing-controllers");
+const CreatePostPayload_1 = require("../domain/Interactors/Post/CreatePost/CreatePostPayload");
 let PostController = class PostController {
-    async createCategory(req) {
-        console.log("alo");
-        return "create category";
+    async getListCategory(req) {
+        return req.interactor.getCategoryInteractor.execute(req);
+    }
+    async createPost(req, photo, payload) {
+        return req.interactor.createPostInteractor.execute(req, photo, payload);
     }
 };
 __decorate([
-    routing_controllers_1.Post("/v1/post/category"),
+    routing_controllers_1.Get("/v1/post/category"),
     __param(0, routing_controllers_1.Req()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
-], PostController.prototype, "createCategory", null);
+], PostController.prototype, "getListCategory", null);
+__decorate([
+    routing_controllers_1.Post("/v1/post/create"),
+    __param(0, routing_controllers_1.Req()),
+    __param(1, routing_controllers_1.UploadedFile("photo")),
+    __param(2, routing_controllers_1.Body()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object, CreatePostPayload_1.CreatePostPayload]),
+    __metadata("design:returntype", Promise)
+], PostController.prototype, "createPost", null);
 PostController = __decorate([
     routing_controllers_1.JsonController()
 ], PostController);
