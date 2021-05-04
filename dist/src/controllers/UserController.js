@@ -20,11 +20,10 @@ let UserController = class UserController {
     async signUp(req, payload) {
         return req.interactor.userSignUpInteractor.execute(payload);
     }
-    async signIn(req) {
-        return req.interactor.userSignInInteractor.execute(req.body);
-    }
-    getSome() {
-        return "";
+    async signIn(req, response) {
+        const token = await req.interactor.userSignInInteractor.execute(req.body);
+        response.setHeader("Authorization", token);
+        return token;
     }
 };
 __decorate([
@@ -36,17 +35,11 @@ __decorate([
 ], UserController.prototype, "signUp", null);
 __decorate([
     routing_controllers_1.Post("/v1/users/signin"),
-    __param(0, routing_controllers_1.Req()),
+    __param(0, routing_controllers_1.Req()), __param(1, routing_controllers_1.Res()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "signIn", null);
-__decorate([
-    routing_controllers_1.Get("/"),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], UserController.prototype, "getSome", null);
 UserController = __decorate([
     routing_controllers_1.JsonController()
 ], UserController);

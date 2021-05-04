@@ -15,6 +15,18 @@ class AppConfigsEnviroment {
     get jwtExpiresIn() {
         return "1h";
     }
+    get awsAccessKey() {
+        return process.env.AWS_ACCESS_KEY ? process.env.AWS_ACCESS_KEY : "";
+    }
+    get awsSecretKey() {
+        return process.env.AWS_SECRET_KEY ? process.env.AWS_SECRET_KEY : "";
+    }
+    get awsBucket() {
+        return process.env.AWS_BUCKET ? process.env.AWS_BUCKET : "";
+    }
+    get awsRegion() {
+        return process.env.AWS_REGION ? process.env.AWS_REGION : "";
+    }
 }
 exports.AppConfigsEnviroment = AppConfigsEnviroment;
 //# sourceMappingURL=AppConfigsEnviroment.js.map

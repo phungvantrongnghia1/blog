@@ -1,3 +1,4 @@
+import { S3Client } from "./../pkgs/configs/s3/S3Client";
 import { TokenUser } from "../domain/Interactors/InteractorContext";
 import { UserSignUpInteractor } from "../domain/Interactors/User/SignUp/UserSignUpInteractor";
 
@@ -22,10 +23,11 @@ export const isAppRequest = (req: Request | AppRequest): req is AppRequest => {
   return (req as AppRequest) !== undefined;
 };
 const knexSQL = new KnexSQL(knexClient);
+const s3Client = new S3Client(appConfigs);
 const userSignUpInteractor = new UserSignUpInteractor(knexSQL);
 const userSignInInteractor = new UserSignInInteractor(knexSQL, appConfigs);
 const getCategoryInteractor = new GetCategoryInteractor(knexSQL);
-const createPostInteractor = new CreatePostInteractor(knexSQL);
+const createPostInteractor = new CreatePostInteractor(knexSQL, s3Client);
 @Middleware({ type: "before" })
 export class BootstrapRouter implements ExpressMiddlewareInterface {
   use(request: Request, response: Response, next: NextFunction) {

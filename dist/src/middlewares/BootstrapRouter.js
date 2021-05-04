@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BootstrapRouter = exports.isAppRequest = void 0;
+const S3Client_1 = require("./../pkgs/configs/s3/S3Client");
 const UserSignUpInteractor_1 = require("../domain/Interactors/User/SignUp/UserSignUpInteractor");
 const knex_1 = require("../../knex");
 const UserSignInInteractor_1 = require("../domain/Interactors/User/UserSignInInteractor/UserSignInInteractor");
@@ -20,10 +21,11 @@ const isAppRequest = (req) => {
 };
 exports.isAppRequest = isAppRequest;
 const knexSQL = new KnexQuery_1.KnexSQL(knex_1.knexClient);
+const s3Client = new S3Client_1.S3Client(AppConfigs_1.appConfigs);
 const userSignUpInteractor = new UserSignUpInteractor_1.UserSignUpInteractor(knexSQL);
 const userSignInInteractor = new UserSignInInteractor_1.UserSignInInteractor(knexSQL, AppConfigs_1.appConfigs);
 const getCategoryInteractor = new GetCategoryInteractor_1.GetCategoryInteractor(knexSQL);
-const createPostInteractor = new CreatePostInteractor_1.CreatePostInteractor(knexSQL);
+const createPostInteractor = new CreatePostInteractor_1.CreatePostInteractor(knexSQL, s3Client);
 let BootstrapRouter = class BootstrapRouter {
     use(request, response, next) {
         if (!exports.isAppRequest(request)) {

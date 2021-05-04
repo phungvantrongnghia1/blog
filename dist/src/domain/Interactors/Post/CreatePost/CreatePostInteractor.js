@@ -5,7 +5,7 @@ const AuthenticationFailedError_1 = require("../../../../helpers/AuthenticationF
 const PhotoNotProvidedError_1 = require("./PhotoNotProvidedError");
 const FileTooLargeError_1 = require("./FileTooLargeError");
 class CreatePostInteractor {
-    constructor(knexClient) {
+    constructor(knexClient, s3Client) {
         this.knexClient = knexClient;
         this.fileUploadMaxSize = 4194304; // 4MB
     }
