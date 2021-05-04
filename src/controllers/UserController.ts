@@ -13,8 +13,4 @@ export class UserController {
     async signIn(@Req() req: AppRequest) {
         return req.interactor.userSignInInteractor.execute(req.body);
     }
-    @Get("/")
-    getSome(){
-        return "";
-    }
 }
